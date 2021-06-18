@@ -1,0 +1,130 @@
+# i3 config file (v4)
+
+set $mod Mod1
+
+font pango:monospace 8
+default_border pixel 2
+default_floating_border none
+floating_modifier $mod
+
+bindsym $mod+Return exec urxvt 			
+bindsym $mod+Q kill 			
+bindsym $mod+b exec firefox 	
+bindsym $mod+r exec rofi -show run 	
+bindsym $mod+Ctrl+s exec urxvt -name spotify -e spt 
+bindsym $mod+v exec "QT_SCALE_FACTOR=1.5 viber"
+bindsym $mod+Ctrl+v exec VirtualBox
+bindsym $mod+t exec teams
+bindsym $mod+c exec code
+bindsym $mod+Ctrl+l exec logisim
+
+bindsym $mod+h focus left 			
+bindsym $mod+j focus down		
+bindsym $mod+k focus up		
+bindsym $mod+l focus right 
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right 
+
+bindsym $mod+s split toggle
+bindsym $mod+f fullscreen toggle
+bindsym $mod+space floating toggle	
+
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+
+bindsym $mod+1 workspace number $ws1 
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3 
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+
+bindsym $mod+Shift+r mode "resize"
+
+mode "resize" {
+
+	bindsym Left resize shrink width 2 px or 2 ppt
+	bindsym Down resize grow height 2 px or 2 ppt
+	bindsym Up resize shrink height 2 px or 2 ppt
+	bindsym Right resize grow width 2 px or 2 ppt
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+r mode "default"
+
+}
+
+bindsym $mod+g mode "go"
+
+mode "go" {
+	bindsym b workspace number $ws1; mode "default"
+	bindsym t workspace number $ws2; mode "default"
+	bindsym c workspace number $ws3; mode "default"
+	bindsym Ctrl+t workspace number $ws7; mode "default"
+	bindsym m workspace number $ws8; mode "default"
+	bindsym v workspace number $ws4; mode "default"
+	bindsym s workspace number $ws5; mode "default"
+	bindsym Ctrl+v workspace number $ws6; mode "default"
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+g mode "default"
+	bindsym q mode "default"
+}
+
+for_window [class="^.*"] border pixel 2
+for_window [class="URxvt" instance="spotify"] move to workspace $ws5
+assign [class="firefox"] 1
+assign [class="viber"] 4
+assign [class="ViberPC"] 4
+assign [class="VirtualBox Manager"] 6
+assign [class="microsoft teams - preview"] 7
+assign [class="Microsoft Teams - Preview"] 7
+assign [class="code-oss"] 3
+assign [class="com-cburch-logisim-Main"] 8
+assign [class="libreoffice"] 8
+#assign [class="URxvt"] 2
+
+gaps inner 10
+gaps outer 10
+gaps top 60
+gaps bottom 60
+gaps left 6
+gaps right 6
+
+
+#exec --no-startup-id nitrogen --restore
+exec --no-startup-id sh ~/Scripts/pywal_bg.sh
+exec --no-startup-id sh "xrdb -m /home/urosh/.Xresources"
+exec_always --no-startup-id picom -b --config ~/.config/picom.conf
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+
+
+bindsym Print exec "scrot Screenshots/%b%d::%H:%M:%S.png"
+bindsym XF86AudioMute exec ponymix toggle
+bindsym XF86AudioLowerVolume exec ponymix decrease 5
+bindsym XF86AudioRaiseVolume exec ponymix increase 5
+bindsym XF86MonBrightnessDown exec light -U 5%
+bindsym XF86MonBrightnessUp exec light -A 5%
